@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Record System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="logo-badge">PAS</div>
+                <span class="brand-text">PharmaCare</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link active" data-page="home">Home</a></li>
+                <!-- Dashboard & Management Links (Hidden for Customers) -->
+                <li class="admin-only"><a href="#dashboard" class="nav-link" data-page="dashboard">Dashboard</a></li>
+                <li class="admin-only"><a href="#medicines" class="nav-link" data-page="medicines">Medicines</a></li>
+                <li class="admin-only"><a href="#stock" class="nav-link" data-page="stock">Stock</a></li>
+                <li class="admin-only"><a href="#sales" class="nav-link" data-page="sales">Sales</a></li>
+                <li class="admin-only"><a href="#customers" class="nav-link" data-page="customers">Customers</a></li>
+                <li class="admin-only"><a href="#suppliers" class="nav-link" data-page="suppliers">Suppliers</a></li>
+                <li class="admin-only"><a href="#reports" class="nav-link" data-page="reports">Reports</a></li>
+
+                <!-- Customer Only Links -->
+                <li class="customer-only" style="display: none;"><a href="#my-orders" class="nav-link"
+                        data-page="sales">My Orders</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="btn-cart" id="cartBtn" onclick="toggleCart()">
+                    <span class="cart-icon">🛒</span>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+                <div class="user-info" id="userInfo" style="display: none;">
+                    <span class="user-name" id="userName"></span>
+                    <button class="btn-logout" id="logoutBtn">Logout</button>
+                </div>
+                <button class="btn-login" id="loginBtn">Login</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Home Page -->
+        <section id="home-page" class="page active">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">Welcome to PharmaCare</h1>
+                    <p class="hero-subtitle">Complete Pharmacy Record Management System</p>
+                    <p class="hero-description">Manage your pharmacy inventory, sales, customers, and suppliers all in
+                        one place with our comprehensive management system.</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="navigateTo('dashboard')">Get Started</button>
+                        <button class="btn btn-secondary" onclick="navigateTo('medicines')">View Medicines</button>
+                    </div>
+                </div>
+                <div class="hero-features">
+                    <div class="feature-card">
+                        <div class="feature-icon">💊</div>
+                        <h3>Medicine Management</h3>
+                        <p>Track inventory, expiry dates, and stock levels</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Sales & Billing</h3>
+                        <p>Create invoices and manage transactions</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">👥</div>
+                        <h3>Customer Records</h3>
+                        <p>Maintain customer and prescription history</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📈</div>
+                        <h3>Reports & Analytics</h3>
+                        <p>Generate comprehensive business reports</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medicines Showcase Section -->
+            <div class="medicines-showcase">
+                <div class="showcase-header">
+                    <h2>Featured Medicines</h2>
+                    <p>Explore our available medicines</p>
+                </div>
+                <div class="medicines-grid" id="medicinesShowcase">
+                    <!-- Medicine cards will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Page -->
+        <section id="dashboard-page" class="page">
+            <div class="page-header">
+                <h1>Dashboard</h1>
+                <p>Overview of your pharmacy operations</p>
+            </div>
+            <div class="stats-grid" id="statsGrid">
+                <!-- Stats will be loaded dynamically -->
+            </div>
+            <div class="dashboard-content">
+                <div class="dashboard-card">
+                    <h3>Recent Sales</h3>
+                    <div id="recentSales"></div>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Low Stock Alert</h3>
+                    <div id="lowStockAlert"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Medicines Page -->
+        <section id="medicines-page" class="page">
+            <div class="page-header">
+                <h1>Medicine Management</h1>
+                <button class="btn btn-primary" id="addMedicineBtn">+ Add Medicine</button>
+            </div>
+            <div class="filters">
+                <input type="text" id="medicineSearch" placeholder="Search medicines..." class="search-input">
+                <select id="categoryFilter" class="filter-select">
+                    <option value="">All Categories</option>
+                    <option value="Tablet">Tablet</option>
+                    <option value="Syrup">Syrup</option>
+                    <option value="Injection">Injection</option>
+                    <option value="Capsule">Capsule</option>
+                    <option value="Ointment">Ointment</option>
+                </select>
+            </div>
+            <div class="table-container">
+                <table class="data-table" id="medicinesTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Batch No.</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Expiry Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="medicinesTableBody">
+                        <!-- Data will be loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Stock Page -->
+        <section id="stock-page" class="page">
+            <div class="page-header">
+                <h1>Stock Management</h1>
+                <button class="btn btn-primary" id="receiveStockBtn">+ Receive Stock</button>
+            </div>
+            <div class="stock-overview">
+                <div class="stock-card">
+                    <h3>Total Items</h3>
+                    <p class="stock-value" id="totalItems">0</p>
+                </div>
+                <div class="stock-card alert">
+                    <h3>Low Stock Items</h3>
+                    <p class="stock-value" id="lowStockItems">0</p>
+                </div>
+            </div>
+            <div class="table-container">
+                <table class="data-table" id="stockTable">
+                    <thead>
+                        <tr>
+                            <th>Medicine</th>
+                            <th>Quantity</th>
+                            <th>Type</th>
+                            <th>Reference</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="stockTableBody">
+                        <!-- Data will be loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Sales Page -->
+        <section id="sales-page" class="page">
+            <div class="page-header">
+                <h1>Sales & Billing</h1>
+                <button class="btn btn-primary" id="newSaleBtn">+ New Sale</button>
+            </div>
+            <div class="table-container">
+                <table class="data-table" id="salesTable">
+                    <thead>
+                        <tr>
+                            <th>Invoice #</th>
+                            <th>Customer</th>
+                            <th>Total Amount</th>
+                            <th>Discount</th>
+                            <th>Final Amount</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="salesTableBody">
+                        <!-- Data will be loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Customers Page -->
+        <section id="customers-page" class="page">
+            <div class="page-header">
+                <h1>Customer Management</h1>
+                <button class="btn btn-primary" id="addCustomerBtn">+ Add Customer</button>
+            </div>
+            <div class="table-container">
+                <table class="data-table" id="customersTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customersTableBody">
+                        <!-- Data will be loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Suppliers Page -->
+        <section id="suppliers-page" class="page">
+            <div class="page-header">
+                <h1>Supplier Management</h1>
+                <button class="btn btn-primary" id="addSupplierBtn">+ Add Supplier</button>
+            </div>
+            <div class="table-container">
+                <table class="data-table" id="suppliersTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Contact Person</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="suppliersTableBody">
+                        <!-- Data will be loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Reports Page -->
+        <section id="reports-page" class="page">
+            <div class="page-header">
+                <h1>Reports & Analytics</h1>
+            </div>
+            <div class="reports-grid">
+                <div class="report-card">
+                    <h3>Sales Report</h3>
+                    <div class="report-filters">
+                        <input type="date" id="salesStartDate" class="date-input">
+                        <input type="date" id="salesEndDate" class="date-input">
+                        <button class="btn btn-secondary" id="generateSalesReport">Generate</button>
+                    </div>
+                    <div id="salesReportContent"></div>
+                </div>
+                <div class="report-card">
+                    <h3>Expiry Report</h3>
+                    <p>Medicines expiring in the next 30 days</p>
+                    <button class="btn btn-secondary" id="generateExpiryReport">Generate</button>
+                    <div id="expiryReportContent"></div>
+                </div>
+                <div class="report-card">
+                    <h3>Stock Report</h3>
+                    <button class="btn btn-secondary" id="generateStockReport">Generate</button>
+                    <div id="stockReportContent"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-brand">
+                    <div class="logo-badge">PAS</div>
+                    <span class="brand-text">PharmaCare</span>
+                </div>
+                <p class="footer-description">Your trusted partner in pharmacy management. Providing comprehensive
+                    solutions for modern healthcare.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#medicines">Medicines</a></li>
+                    <li><a href="#reports">Reports</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul class="footer-contact">
+                    <li>📧 info@pharmacare.com</li>
+                    <li>📞 +1 (555) 123-4567</li>
+                    <li>📍 123 Healthcare Ave, Medical City</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Business Hours</h3>
+                <ul class="footer-hours">
+                    <li>Monday - Friday: 8:00 AM - 8:00 PM</li>
+                    <li>Saturday: 9:00 AM - 6:00 PM</li>
+                    <li>Sunday: 10:00 AM - 4:00 PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 PharmaCare. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Modal Container -->
+    <div class="modal" id="modal">
+        <div class="modal-content" id="modalContent">
+            <!-- Modal content will be loaded dynamically -->
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-panel">
+            <div class="cart-header">
+                <h2>Shopping Cart</h2>
+                <button class="close-cart" onclick="closeCart()">✕</button>
+            </div>
+            <div class="cart-body" id="cartContent">
+                <!-- Cart items will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Bill Modal -->
+    <div class="modal" id="billModal">
+        <div class="modal-content bill-modal-content" id="billContent">
+            <!-- Bill will be generated dynamically -->
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <!-- Scripts -->
+    <script src="js/db.js"></script> <!-- INSERTED DB.JS HERE -->
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/medicines.js"></script>
+    <script src="js/stock.js"></script>
+    <script src="js/sales.js"></script>
+    <script src="js/customers.js"></script>
+    <script src="js/suppliers.js"></script>
+    <script src="js/reports.js"></script>
+    <script src="js/showcase.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

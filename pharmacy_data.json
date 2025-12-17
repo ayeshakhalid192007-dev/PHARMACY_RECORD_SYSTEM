@@ -1,0 +1,47 @@
+{
+  "db": {
+    "users": [
+      {
+        "id": 1,
+        "username": "admin",
+        "password": "$2b$10$sOS8UL8ie0D1UR3D0VVc8uGBZkCLgLB4gVDYDLvXlSTPO1G5/hMe2",
+        "role": "Admin",
+        "email": "admin@pharmacy.com",
+        "created_at": "2025-11-30T03:12:39.037Z"
+      },
+      {
+        "id": 2,
+        "username": "aisha",
+        "password": "$2b$10$D6JTfexchdRSuZ8E4UVmQuyTRKsb3.w4gH2yDT3j1KB4EcyuhIrRO",
+        "role": "Staff",
+        "email": "abc@gmail.com",
+        "created_at": "2025-11-30T03:24:21.087Z"
+      },
+      {
+        "id": 3,
+        "username": "aisha",
+        "password": "$2b$10$z0Sj7EV1ObO30bvONlwwVusq2Oc7NgHoO3CQv9lOk57PQokaLlrsG",
+        "role": "Staff",
+        "email": "abc@gmail.com",
+        "created_at": "2025-11-30T03:26:58.979Z"
+      }
+    ],
+    "medicines": [],
+    "stock": [],
+    "customers": [],
+    "suppliers": [],
+    "sales": [],
+    "invoices": [],
+    "purchases": []
+  },
+  "autoIncrementIds": {
+    "users": 4,
+    "medicines": 1,
+    "stock": 1,
+    "customers": 1,
+    "suppliers": 1,
+    "sales": 1,
+    "invoices": 1,
+    "purchases": 1
+  }
+}
