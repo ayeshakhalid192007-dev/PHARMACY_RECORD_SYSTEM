@@ -123,7 +123,7 @@ To help you visualize the application, place your screenshots in the `images/scr
 |-----------|---------------|
 | [Dashboard](dashboard.png) | [Medicines](medicine management.png) |
 | **Sales Interface** | **Reports** |
-| [Sales]() | [Reports]() |
+| [Sales](sales.png) | [Reports]() |
 
 ---
 
@@ -164,6 +164,7 @@ The backend exposes a REST API at `/api`.
 ## 📄 License
 
 This project is open-source and available for educational purposes.
+
 
 
 
