@@ -11,9 +11,6 @@
 - [🛠️ Technology Stack](#-technology-stack)
 - [⚙️ Installation & Setup](#-installation--setup)
 - [📖 Usage Guide](#-usage-guide)
-- [📸 Screenshots](#-screenshots<img width="1859" height="751" alt="image" src="https://github.com/user-attachments/assets/b129283c-859e-46df-9ea9-afb0f188c3bc" />
-<img width="1918" height="930" alt="image" src="https://github.com/user-attachments/assets/2fb3bacb-7ff7-4cf9-bf41-f8fcd7500be0" />
-)
 - [📂 Project Structure](#-project-structure)
 - [🔌 API Documentation](#-api-documentation)
 - [📄 License](#-license)
@@ -167,5 +164,6 @@ The backend exposes a REST API at `/api`.
 ## 📄 License
 
 This project is open-source and available for educational purposes.
+
 
 
