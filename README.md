@@ -121,9 +121,9 @@ To help you visualize the application, place your screenshots in the `images/scr
 
 | Dashboard | Medicine List |
 |-----------|---------------|
-| ![Dashboard](images/screenshots/dashboard.png) | ![Medicines](images/screenshots/medicines.png) |
+| [Dashboard](Screenshot 2026-01-08 180507.png) | [Medicines](Screenshot 2026-01-16 232225.png) |
 | **Sales Interface** | **Reports** |
-| ![Sales](images/screenshots/sales.png) | ![Reports](images/screenshots/reports.png) |
+| [Sales](Screenshot 2026-01-16 232427.png) | [Reports](Screenshot 2026-01-16 232500.png) |
 
 ---
 
@@ -164,6 +164,7 @@ The backend exposes a REST API at `/api`.
 ## 📄 License
 
 This project is open-source and available for educational purposes.
+
 
 
 
